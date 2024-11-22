@@ -8,3 +8,7 @@ sleep 5
 kubectl apply -f kubernetes/producer-2-deployment.yml
 sleep 5
 kubectl apply -f kubernetes/consumer-2-deployment.yml
+sleep 5
+kubectl apply -f kubernetes/producer-3-deployment.yml
+sleep 5
+kubectl apply -f kubernetes/consumer-3-deployment.yml
