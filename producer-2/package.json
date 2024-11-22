@@ -1,15 +1,16 @@
 {
-  "name": "test-consumer",
+  "name": "producer-2",
   "version": "1.0.0",
-  "description": "",
-  "main": "consumer.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node consumer.js"
+    "start": "node producer.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "description": "",
   "dependencies": {
     "kafkajs": "^2.2.4"
   }
 }
+

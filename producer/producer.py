@@ -1,9 +1,10 @@
 from confluent_kafka import Producer
+import json  # Importamos la librería para manejar el JSON
 
 # Configuración del productor
 producer_config = {
-    'bootstrap.servers': 'localhost:9092',  # Dirección y puerto del broker Kafka
-    'client.id': 'python-producer',         # ID del cliente para identificarlo
+    'bootstrap.servers':'kafka-broker-1:9092',  # Dirección y puerto del broker Kafka
+    'client.id': 'test',         # ID del cliente para identificarlo
 }
 
 # Crear una instancia del productor
@@ -29,10 +30,16 @@ def main():
             if message_value.lower() == 'exit':  # Salir si el mensaje es 'exit'
                 break
 
-            # Enviar mensaje
+            # Crear un diccionario con el mensaje y la fuente
+            message = {
+                'source': 'python-producer Ervin Caravali Ibarra ',  # Indicar que es de Python
+                'message': message_value
+            }
+
+            # Enviar el mensaje como un JSON
             producer.produce(
                 topic,
-                value=message_value.encode('utf-8'),  # Codificar el mensaje en bytes
+                value=json.dumps(message).encode('utf-8'),  # Convertir a JSON y codificar en bytes
                 callback=delivery_report             # Asignar callback para la entrega
             )
 

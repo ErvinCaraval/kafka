@@ -1,11 +1,12 @@
 from confluent_kafka import Consumer, KafkaException, KafkaError
 import signal
 import sys
+import json  # Importar la librería para manejar el JSON
 
 # Configuración del consumidor
 consumer_config = {
-    'bootstrap.servers': 'localhost:9092',  # Dirección y puerto del broker Kafka
-    'group.id': 'test-group',               # Grupo de consumidores
+    'bootstrap.servers': 'kafka-broker-1:9092',  # Dirección y puerto del broker Kafka
+    'group.id': 'test',               # Grupo de consumidores
     'auto.offset.reset': 'earliest',        # Leer mensajes desde el inicio si no hay offset
 }
 
@@ -45,8 +46,19 @@ def main():
                 else:
                     raise KafkaException(msg.error())
             else:
-                # Procesar y mostrar el mensaje
-                print(f"Mensaje recibido: {msg.value().decode('utf-8')}")
+                # Procesar el mensaje
+                try:
+                    # Convertir el mensaje en formato JSON
+                    message = json.loads(msg.value().decode('utf-8'))
+
+                    # Acceder al campo 'source' que contiene la información sobre el origen del mensaje
+                    source = message.get('source', 'Costumer.py Ervin Caravali Ibarra')
+                    message_value = message.get('message', '')
+
+                    print(f"Mensaje recibido desde {source}: {message_value}")
+
+                except json.JSONDecodeError:
+                    print("Error al decodificar el mensaje. El mensaje no es un JSON válido.")
                 
     except Exception as e:
         print(f"Error al consumir mensajes: {e}")
@@ -55,3 +67,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

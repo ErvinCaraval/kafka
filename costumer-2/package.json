@@ -1,14 +1,14 @@
 {
-  "name": "auth-service",
+  "name": "costumer-2",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node costumer.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "description": "",
   "dependencies": {
     "kafkajs": "^2.2.4"
   }
